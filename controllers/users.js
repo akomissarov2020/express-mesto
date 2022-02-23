@@ -27,8 +27,7 @@ module.exports.createUser = (req, res, next) => {
   }
 
   const {
-    email,
-    password,
+    name, about, avatar, email, password,
   } = req.body;
 
   if (!email || !password) {
@@ -42,7 +41,9 @@ module.exports.createUser = (req, res, next) => {
       }
 
       bcrypt.hash(password, 10)
-        .then((hash) => User.create({ email, password: hash }))
+        .then((hash) => User.create({
+          name, about, avatar, email, password: hash,
+        }))
         .then((usr) => res.status(201).send(getUserWithoutPassword(usr)))
         .catch((err) => {
           if (err.name === 'ValidationError') {
