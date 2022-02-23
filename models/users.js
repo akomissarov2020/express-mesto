@@ -2,6 +2,7 @@ const validator = require('validator');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const Error401 = require('../errors/error401');
+const { validateURLforScheme } = require('../utils/local_validators');
 
 const usersSchema = new mongoose.Schema({
   name: {
@@ -24,7 +25,9 @@ const usersSchema = new mongoose.Schema({
     type: String,
     required: false,
     default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
-    validate: /^https?:\/\/[a-z\d\-._~:/?#[\]@!$&'()*+,;=]+#?$/,
+    validate: {
+      validator: validateURLforScheme,
+    },
   },
   email: {
     type: String,

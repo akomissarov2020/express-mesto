@@ -27,7 +27,7 @@ module.exports.createCard = (req, res, next) => {
       }
       return next(err);
     });
-  return next();
+  return undefined;
 };
 
 module.exports.deleteCard = (req, res, next) => {
