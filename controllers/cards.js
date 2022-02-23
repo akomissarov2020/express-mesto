@@ -30,22 +30,25 @@ module.exports.createCard = (req, res, next) => {
 };
 
 module.exports.deleteCard = (req, res, next) => {
-  Card.findByIdAndRemove(req.params.cardId)
+  const owner = req.user._id;
+  return Card.findById(req.params.cardId)
     .populate('owner')
-    .then((card) => {
-      if (!card) {
+    .then((mycard) => {
+      if (!mycard) {
         return next(new Error404('Карточка не найдена'));
       }
-      if (card.owner !== req.user._id) {
+      if (!mycard.owner || mycard.owner._id.toString() !== owner) {
         return next(new Error403('Нет прав на удаление'));
       }
-      return res.send(card);
-    })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        return next(new Error400('Неправильные параметры'));
-      }
-      return next(err);
+      return Card.findByIdAndRemove(req.params.cardId)
+        .populate('owner')
+        .then((card) => res.send(card))
+        .catch((err) => {
+          if (err.name === 'CastError') {
+            return next(new Error400('Неправильные параметры'));
+          }
+          return next(err);
+        });
     });
 };
 
