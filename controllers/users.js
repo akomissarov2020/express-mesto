@@ -74,6 +74,23 @@ module.exports.getUser = (req, res, next) => {
     });
 };
 
+module.exports.getCurrentUser = (req, res, next) => {
+  const { _id } = req.user;
+  User.findById(_id)
+    .then((user) => {
+      if (!user) {
+        return next(new Error404('Пользователь не найден'));
+      }
+      return res.send(user);
+    })
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        return next(new Error400('Неправильные параметры'));
+      }
+      return next(err);
+    });
+};
+
 module.exports.updateUser = (req, res, next) => {
   const { _id } = req.user;
   if (!req.body) {
@@ -96,7 +113,7 @@ module.exports.updateUser = (req, res, next) => {
       }
       return next(err);
     });
-  return next();
+  return undefined;
 };
 
 module.exports.updateUserAvatar = (req, res, next) => {
@@ -121,7 +138,7 @@ module.exports.updateUserAvatar = (req, res, next) => {
       }
       return next(err);
     });
-  return next();
+  return undefined;
 };
 
 module.exports.login = (req, res, next) => {

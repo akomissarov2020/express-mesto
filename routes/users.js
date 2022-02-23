@@ -4,11 +4,14 @@ const router = require('express').Router();
 const {
   getUsers,
   getUser,
+  getCurrentUser,
   updateUser,
   updateUserAvatar,
 } = require('../controllers/users');
 
 router.get('/users', getUsers);
+
+router.get('/users/me', getCurrentUser);
 
 router.get('/users/:id', celebrate({
   params: Joi.object().keys({
