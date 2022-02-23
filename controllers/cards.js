@@ -19,7 +19,7 @@ module.exports.createCard = (req, res, next) => {
   if (!name || !link || !owner) {
     return next(new Error400('Неправильные параметры'));
   }
-  Card.create({ name, link, owner })
+  return Card.create({ name, link, owner })
     .then((card) => res.send(card))
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
@@ -27,7 +27,6 @@ module.exports.createCard = (req, res, next) => {
       }
       return next(err);
     });
-  return undefined;
 };
 
 module.exports.deleteCard = (req, res, next) => {

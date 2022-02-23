@@ -35,7 +35,7 @@ module.exports.createUser = (req, res, next) => {
     return next(new Error400('Неправильные параметры'));
   }
 
-  User.findOne({ email })
+  return User.findOne({ email })
     .then((user) => {
       if (user) {
         throw new Error409('Пользователь существует');
@@ -55,7 +55,6 @@ module.exports.createUser = (req, res, next) => {
         });
     })
     .catch(next);
-  return undefined;
 };
 
 module.exports.getUser = (req, res, next) => {
@@ -100,7 +99,7 @@ module.exports.updateUser = (req, res, next) => {
   if (!name || !about) {
     return next(new Error400('Неправильные параметры'));
   }
-  User.findByIdAndUpdate(_id, { name, about }, { new: true, runValidators: true })
+  return User.findByIdAndUpdate(_id, { name, about }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
         return next(new Error404('Пользователь не найден'));
@@ -113,7 +112,6 @@ module.exports.updateUser = (req, res, next) => {
       }
       return next(err);
     });
-  return undefined;
 };
 
 module.exports.updateUserAvatar = (req, res, next) => {
@@ -125,7 +123,7 @@ module.exports.updateUserAvatar = (req, res, next) => {
   if (!avatar) {
     return next(new Error400('Неправильные параметры'));
   }
-  User.findByIdAndUpdate(_id, { avatar }, { new: true, runValidators: true })
+  return User.findByIdAndUpdate(_id, { avatar }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
         return next(new Error404('Пользователь не найден'));
@@ -138,7 +136,6 @@ module.exports.updateUserAvatar = (req, res, next) => {
       }
       return next(err);
     });
-  return undefined;
 };
 
 module.exports.login = (req, res, next) => {
@@ -147,7 +144,7 @@ module.exports.login = (req, res, next) => {
   }
   const { email, password } = req.body;
 
-  User.findUserByCredentials(email, password)
+  return User.findUserByCredentials(email, password)
     .then((user) => {
       if (!user) {
         return next(new Error401('Неправильные почта или пароль'));
@@ -164,5 +161,4 @@ module.exports.login = (req, res, next) => {
       }).send(filteredUser).end();
     })
     .catch((err) => next(err));
-  return undefined;
 };
