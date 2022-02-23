@@ -21,6 +21,13 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.post('/signup', celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+  }),
+}), createUser);
+
 app.post('/signin', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
@@ -30,13 +37,6 @@ app.post('/signin', celebrate({
     password: Joi.string().required(),
   }),
 }), login);
-
-app.post('/signup', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().email().required(),
-    password: Joi.string().required(),
-  }),
-}), createUser);
 
 app.use(authMiddleware);
 app.use('/', require('./routes/users'));

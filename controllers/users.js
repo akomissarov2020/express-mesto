@@ -139,12 +139,13 @@ module.exports.login = (req, res, next) => {
         { _id: user._id },
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
       );
+      const filteredUser = getUserWithoutPassword(user);
       return res.cookie('jwt', token, {
         maxAge: 60 * 60 * 24 * 7,
         httpOnly: true,
         sameSite: true,
-      }).send(getUserWithoutPassword(user)).end();
+      }).send(filteredUser).end();
     })
     .catch((err) => next(err));
-  return next();
+  return undefined;
 };

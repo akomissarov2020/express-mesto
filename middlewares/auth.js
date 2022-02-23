@@ -5,7 +5,7 @@ const Error401 = require('../errors/error401');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-module.exports = function authMiddleware(req, res, next) {
+module.exports = (req, res, next) => {
   if (!req.cookies || !req.cookies.jwt) {
     return next(new Error401('Необходима авторизация'));
   }
