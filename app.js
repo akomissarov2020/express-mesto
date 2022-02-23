@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const authMiddleware = require('./middlewares/auth');
 const { login, createUser } = require('./controllers/users');
 const Error404 = require('./errors/error404');
+const Error400 = require('./errors/error404');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -26,7 +27,7 @@ app.post('/signin', celebrate({
     about: Joi.string().min(2).max(30),
     avatar: Joi.string().pattern(/^https?:\/\/[a-z\d\-._~:/?#[\]@!$&'()*+,;=]+#?&/),
     email: Joi.string().email().required(),
-    password: Joi.string().required().min(8).max(35),
+    password: Joi.string().required(),
   }),
 }), login);
 
@@ -46,12 +47,24 @@ app.use('*', (req, res, next) => next(
 ));
 
 // Celebrate errors
-app.use(errors());
+app.use((req, res, next) => {
+  try {
+    errors();
+  } catch (err) {
+    if (err.message === 'Validation failed') {
+      return next(new Error400('Неправильные параметры'));
+    }
+    return next(err);
+  }
+  return next();
+});
 
 // здесь обрабатываем все ошибки
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
-  // console.log(err);
+  // console.log(statusCode);
+  // console.log(message);
+  // console.log(name);
   res.status(statusCode).send(
     { message: statusCode === 500 ? 'На сервере произошла ошибка' : message },
   );
