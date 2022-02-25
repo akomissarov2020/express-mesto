@@ -1,0 +1,17 @@
+.page__elements {
+
+}
+
+@media screen and (max-width: 880px) {
+  .page__elements {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .page__elements {
+    padding-left: 19px;
+    padding-right: 19px;
+  }
+}

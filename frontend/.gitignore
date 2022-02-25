@@ -1,0 +1,7 @@
+node_modules
+dist
+build
+ya_cryptoducks
+.DS_Store
+.vscode/*
+src/.DS_Store

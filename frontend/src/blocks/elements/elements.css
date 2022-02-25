@@ -1,0 +1,22 @@
+.elements {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  row-gap: 20px;
+  column-gap: 17px;
+}
+
+@media screen and (max-width: 880px) {
+  .elements {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .elements {
+    display: flex;
+    flex-direction: column;
+  }
+}

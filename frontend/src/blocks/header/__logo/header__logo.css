@@ -1,0 +1,21 @@
+.header__logo {
+  width: 142px;
+  height: 33px;
+  display: block;
+  text-decoration: none;
+  /* margin-bottom: 41px; */
+  transition: opacity 0.2s ease-in;
+}
+
+.header__logo:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 320px) {
+  .header__logo {
+    width: 109px;
+    height: 25px;
+    margin-left: 27px;
+    margin-bottom: 32px;
+  }
+}

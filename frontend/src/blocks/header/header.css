@@ -1,0 +1,12 @@
+.header {
+  border-bottom: 1px solid var(--decoration);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+@media screen and (max-width: 320px) {
+  .header {
+    width: 100%;
+  }
+}

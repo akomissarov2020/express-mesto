@@ -1,0 +1,17 @@
+.auth__container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 60px auto 80px auto;
+    background-color: var(--dark-bg);
+    width: 358px;
+    padding: 0;
+  }
+  
+  @media screen and (max-width: 320px) {
+    .auth__container {
+      margin: auto 16px;
+      padding: 15px 22px 25px 22px;
+    }
+  }
+  

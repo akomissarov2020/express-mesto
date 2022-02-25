@@ -1,0 +1,12 @@
+.form__field {
+  padding: 0;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.21;
+  border: none;
+  border-bottom: 1px solid var(--popup-field);
+  padding-bottom: 13px;
+  margin-bottom: 30px;
+}

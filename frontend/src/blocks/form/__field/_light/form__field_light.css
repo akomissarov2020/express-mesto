@@ -1,0 +1,5 @@
+.form__field_light {
+    border-bottom: 1px solid var(--light-field);
+    color: var(--light-field);
+    background-color: var(--dark-bg);
+}

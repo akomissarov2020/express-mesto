@@ -1,0 +1,18 @@
+.page__container {
+  margin: 0 0 51px 0;
+}
+
+@media screen and (max-width: 880px) {
+  .page__container {
+    padding-left: 40px;
+    padding-right: 40px;
+    margin: 0 0 36px 0;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .page__container {
+    padding-left: 19px;
+    padding-right: 19px;
+  }
+}
