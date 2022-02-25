@@ -7,7 +7,7 @@ const authMiddleware = require('./middlewares/auth');
 const { login, createUser } = require('./controllers/users');
 const Error404 = require('./errors/error404');
 const { validateURL } = require('./utils/local_validators');
-
+const { requestLogger, errorLogger} = require('./middlewares/loggers');
 const { PORT = 3000 } = process.env;
 const app = express();
 
@@ -20,6 +20,8 @@ mongoose.connect('mongodb://localhost:27017/mestodb')
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(requestLogger);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -45,6 +47,8 @@ app.use('/', require('./routes/cards'));
 app.use('*', (req, res, next) => next(
   new Error404('Ресурс не найден. Проверьте URL и метод запроса'),
 ));
+
+app.use(errorLogger);
 
 // Celebrate errors
 app.use(errors());
