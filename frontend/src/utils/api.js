@@ -15,15 +15,15 @@ class Api {
       })
       .then(this._checkResponse);
     }
-  
+
     getUserInfo() {
       return fetch(`${this._baseUrl}users/me`, {
         method: 'GET',
         headers: this._headers
       })
-      .then(this._checkResponse); 
+      .then(this._checkResponse);
     }
-  
+
     updateUserInfo(data) {
       return fetch(`${this._baseUrl}users/me`, {
         method: 'PATCH',
@@ -35,7 +35,7 @@ class Api {
       })
       .then(this._checkResponse);
     }
-  
+
     insertNewCard(data) {
       return fetch(`${this._baseUrl}cards`, {
         method: 'POST',
@@ -43,11 +43,11 @@ class Api {
         body: JSON.stringify({
           name: data.name,
           link: data.link
-        }) 
+        })
       })
       .then(this._checkResponse);
     }
-  
+
     putLike(id) {
       return fetch(`${this._baseUrl}cards/likes/${id}`, {
         method: 'PUT',
@@ -55,7 +55,7 @@ class Api {
       })
       .then(this._checkResponse);
     }
-  
+
     deleteLike(id) {
       return fetch(`${this._baseUrl}cards/likes/${id}`, {
         method: 'DELETE',
@@ -63,7 +63,7 @@ class Api {
         })
       .then(this._checkResponse);
     }
-  
+
     updateAvatar(data) {
       return fetch(`${this._baseUrl}users/me/avatar`, {
         method: 'PATCH',
@@ -74,7 +74,7 @@ class Api {
       })
       .then(this._checkResponse);
     }
-  
+
     deletePhoto(id) {
       return fetch(`${this._baseUrl}cards/${id}`, {
         method: 'DELETE',
@@ -82,7 +82,7 @@ class Api {
       })
       .then(this._checkResponse);
     }
-  
+
     _checkResponse(res) {
       if (res.ok) {
         return res.json();
@@ -90,13 +90,13 @@ class Api {
       return Promise.reject(`Error: ${res.status}`);
     }
   }
-  
+
   const api = new Api({
-    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-26/',
+    baseUrl: 'http://mesto2002.nomoredomains.work/api',
     headers: {
       authorization: '05e586ce-c0c8-4f14-bbd3-b259a470e2b4',
       'Content-Type': 'application/json'
     }
   });
-  
+
   export default api;

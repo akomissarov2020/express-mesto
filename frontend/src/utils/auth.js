@@ -18,7 +18,7 @@ class AuthApi {
           })
         .then(this._checkResponse);
     }
-  
+
     register(data) {
         return fetch(`${this._baseUrl}/signup`, {
             method: 'POST',
@@ -26,7 +26,7 @@ class AuthApi {
             body: JSON.stringify({
                email: data.email,
                password: data.password
-            }) 
+            })
         })
         .then(this._checkResponse);
     }
@@ -56,7 +56,7 @@ class AuthApi {
 }
 
 const auth = new AuthApi({
-    baseUrl: 'https://auth.nomoreparties.co',
+    baseUrl: 'http://mesto2002.nomoredomains.work/api',
     headers: {
         'Content-Type': 'application/json'
     }
