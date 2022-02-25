@@ -7,6 +7,9 @@ error.log
 
 # Dependency directory
 node_modules
+dist
+build
+
 
 # Settings
 .env
@@ -18,3 +21,4 @@ node_modules
 .DS_Store
 .idea
 .vscode
+src/.DS_Store
