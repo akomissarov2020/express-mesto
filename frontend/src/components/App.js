@@ -235,12 +235,8 @@ function App() {
     setIsLoadingSomething(true);
     auth.login(data)
       .then((data) => {
-        if (data.status === 200) {
-          setLoggedIn(true);
-          redirectToRoot();
-        } else {
-          console.log(`ответ не содержит токен`);
-        }
+        setLoggedIn(true);
+        redirectToRoot();
       })
       .catch((err) => {
         if (err.status === 400) {
