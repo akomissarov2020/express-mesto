@@ -44,6 +44,7 @@ function App() {
       .then((res)=> {
         setCurrentUser(prevState => ({
           ...prevState,
+          avatar: res.avatar,
           email: res.email,
           _id: res._id,
           name: res.name,
@@ -157,7 +158,7 @@ function App() {
 
   function handleCardLike(card) {
     setIsLoadingSomething(true);
-    const hasOwnLike = card.likes.some(like => like._id === currentUser._id);
+    const hasOwnLike = card.likes.some(like => like === currentUser._id);
     (hasOwnLike ? api.deleteLike(card._id) : api.putLike(card._id))
     .then(
       (newCard) => {
