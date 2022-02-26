@@ -9,7 +9,7 @@ class Api {
     }
 
     getInitialCards() {
-      return fetch(`${this._baseUrl}/cards`, {
+      return fetch(`${this._baseUrl}cards`, {
         method: 'GET',
         headers: this._headers
       })
@@ -92,7 +92,7 @@ class Api {
   }
 
   const api = new Api({
-    baseUrl: 'http://mesto2002.nomoredomains.work/api',
+    baseUrl: 'http://mesto2002.nomoredomains.work/api/',
     headers: {
       authorization: '05e586ce-c0c8-4f14-bbd3-b259a470e2b4',
       'Content-Type': 'application/json'

@@ -8,7 +8,7 @@ class AuthApi {
     }
 
     login(data) {
-        return fetch(`${this._baseUrl}/signin`, {
+        return fetch(`${this._baseUrl}signin`, {
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({
@@ -20,7 +20,7 @@ class AuthApi {
     }
 
     register(data) {
-        return fetch(`${this._baseUrl}/signup`, {
+        return fetch(`${this._baseUrl}signup`, {
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({
@@ -32,7 +32,7 @@ class AuthApi {
     }
 
     user() {
-        return fetch(`${this._baseUrl}/users/me`, {
+        return fetch(`${this._baseUrl}users/me`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ class AuthApi {
     }
 
     logout() {
-      return fetch(`${this._baseUrl}/users/me`, {
+      return fetch(`${this._baseUrl}users/me`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ class AuthApi {
 }
 
 const auth = new AuthApi({
-    baseUrl: 'http://mesto2002.nomoredomains.work/api',
+    baseUrl: 'http://mesto2002.nomoredomains.work/api/',
     headers: {
         'Content-Type': 'application/json'
     }
