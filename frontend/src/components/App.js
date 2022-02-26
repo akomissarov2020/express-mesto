@@ -50,7 +50,7 @@ function App() {
           about: res.about,
         }));
         setLoggedIn(true);
-        redirectToRoot();
+        navigate("/");
       })
       .catch((err) => {
         if (err.status === 400) {
@@ -80,11 +80,7 @@ function App() {
     .finally(() => {
       setIsLoadingSomething(false)
     });
-  }, []);
-
-  function redirectToRoot() {
-    navigate("/");
-  }
+  }, [navigate]);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -238,7 +234,7 @@ function App() {
     setIsLoadingSomething(true);
     auth.login(data)
       .then((data) => {
-        redirectToRoot();
+        navigate("/");
       })
       .catch((err) => {
         if (err.status === 400) {
