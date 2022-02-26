@@ -31,15 +31,15 @@ function App() {
   const [cardIdToBeDeleted, setCardIdToBeDeleted] = React.useState({});
   const [selectedCard, setSelectedCard] = React.useState({name: '', link: ''});
   const [currentUser, setCurrentUser] = React.useState({
-                                                    avatar: profileAvatarPath, 
-                                                    email: '', 
+                                                    avatar: profileAvatarPath,
+                                                    email: '',
                                                     _id: ''});
   const [cards, setCards] = React.useState([]);
   const [isLoadingSomething, setIsLoadingSomething] = React.useState(false);
 
   React.useEffect(()=>{
     setIsLoadingSomething(true);
-    
+
     auth.user()
       .then((res)=> {
         setCurrentUser(prevState => ({
@@ -64,7 +64,7 @@ function App() {
     .then(([userData, initialCards]) => {
       setCurrentUser(prevState => ({
         ...prevState,
-        avatar: userData.avatar, 
+        avatar: userData.avatar,
         name: userData.name,
         about: userData.about,
         _id: userData._id
@@ -166,8 +166,8 @@ function App() {
     .finally(() => {
       setIsLoadingSomething(false)
     });
-  } 
-  
+  }
+
   function handleCardDelete(card) {
     setIsLoadingSomething(true);
     api.deletePhoto(card._id)
@@ -201,7 +201,7 @@ function App() {
   }
 
   function handleRegisterClick(data) {
-    
+
     setIsLoadingSomething(true);
     auth.register(data)
       .then((data) => {
@@ -235,8 +235,7 @@ function App() {
     setIsLoadingSomething(true);
     auth.login(data)
       .then((data) => {
-        if (data.token) {
-          localStorage.setItem("jwt", data.token);
+        if (data.status === 200) {
           setLoggedIn(true);
           redirectToRoot();
         } else {
@@ -266,7 +265,7 @@ function App() {
   }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>    
+    <CurrentUserContext.Provider value={currentUser}>
       <Header onLogout={handleLogout} />
       <Routes>
         <Route path="/signup" element={
@@ -274,11 +273,11 @@ function App() {
           } />
         <Route exact path="/" element={
           <ProtectedRoute isLoggedIn={loggedIn}>
-            <Main 
-              onEditProfile={handleEditProfileClick}  
-              onEditAvatar={handleEditAvatarClick} 
-              onAddPlace={handleAddPlaceClick} 
-              onCardClick={handleCardClick} 
+            <Main
+              onEditProfile={handleEditProfileClick}
+              onEditAvatar={handleEditAvatarClick}
+              onAddPlace={handleAddPlaceClick}
+              onCardClick={handleCardClick}
               cards={cards}
               onCardLike={handleCardLike}
               onCardDelete={handleConfirmation}
@@ -286,42 +285,42 @@ function App() {
             <Footer />
           </ProtectedRoute>
         } />
-        <Route path="/signin" element={<Login 
+        <Route path="/signin" element={<Login
               onLogin={handleLoginClick}
         />} />
         <Route path="*" element={<Navigate to="/signin" />} />
       </Routes>
-      <EditProfilePopup 
-        isOpen={isEditProfilePopupOpen} 
-        onClose={closeAllPopups} 
+      <EditProfilePopup
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
         onUpdateUser={handleUpdateUser}
         isLoading={isLoadingSomething}
       />
-      <EditAvatarPopup 
-        isOpen={isEditAvatarPopupOpen} 
-        onClose={closeAllPopups} 
+      <EditAvatarPopup
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
         onUpdateAvatar={handleUpdateAvatar}
         isLoading={isLoadingSomething}
       />
-      <AddPlacePopup 
-        isOpen={isAddPlacePopupOpen} 
-        onClose={closeAllPopups} 
+      <AddPlacePopup
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
         onUpdateCards={handleAddPlaceSubmit}
         isLoading={isLoadingSomething}
       />
-      <ConfirmPopup 
-        isOpen={isConfirmPopupOpen} 
-        onClose={closeAllPopups} 
+      <ConfirmPopup
+        isOpen={isConfirmPopupOpen}
+        onClose={closeAllPopups}
         onSubmit={handleCardDelete}
         isLoading={isLoadingSomething}
         cardToDelete={cardIdToBeDeleted}
       />
-      <InfoTooltip 
+      <InfoTooltip
         status={intoToolTipStatus}
-        onClose={closeIntoTooltip} 
-        isOpen={isTooltipPopupOpen} 
+        onClose={closeIntoTooltip}
+        isOpen={isTooltipPopupOpen}
       />
-      <ImagePopup card={selectedCard} onClose={closeAllPopups} 
+      <ImagePopup card={selectedCard} onClose={closeAllPopups}
       />
     </CurrentUserContext.Provider>
   );

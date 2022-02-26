@@ -155,11 +155,15 @@ module.exports.login = (req, res, next) => {
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
       );
       const filteredUser = getUserWithoutPassword(user);
-      return res.cookie('jwt', token, {
+      return res.status(200).cookie('jwt', token, {
         maxAge: 60 * 60 * 24 * 7,
         httpOnly: true,
         sameSite: true,
       }).send(filteredUser).end();
     })
     .catch((err) => next(err));
+};
+
+module.exports.logoutUser = (req, res, next) => {
+  return res.clearCookie("key").end();
 };

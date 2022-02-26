@@ -32,19 +32,23 @@ class AuthApi {
     }
 
     user() {
-        const jwt = localStorage.getItem("jwt");
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization' : `Bearer ${jwt}`,
             }
           })
           .then(this._checkResponse);
     }
 
     logout() {
-        localStorage.removeItem("jwt");
+      return fetch(`${this._baseUrl}/users/me`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+      })
+      .then(this._checkResponse);
     }
 
     _checkResponse(res) {

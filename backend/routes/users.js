@@ -8,6 +8,7 @@ const {
   getCurrentUser,
   updateUser,
   updateUserAvatar,
+  logoutUser,
 } = require('../controllers/users');
 
 router.get('/api/users', getUsers);
@@ -26,6 +27,9 @@ router.patch('/api/users/me', celebrate({
     about: Joi.string().required().min(2).max(30),
   }),
 }), updateUser);
+
+
+router.delete('/api/users/me', logoutUser);
 
 router.patch('/api/users/me/avatar', celebrate({
   body: Joi.object().keys({
