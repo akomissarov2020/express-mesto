@@ -11,11 +11,37 @@ const { requestLogger, errorLogger} = require('./middlewares/loggers');
 const { PORT = 3000 } = process.env;
 const app = express();
 
+
+const allowedCors = [
+  'http://mesto2002.nomoredomains.work/',
+  'https://mesto2002.nomoredomains.work/',
+  'http://mesto2002.nomoredomains.work/api/',
+  'https://mesto2002.nomoredomains.work/api/',
+  'localhost:3000'
+];
+
 mongoose.connect('mongodb://localhost:27017/mestodb')
   .catch((err) => {
     console.log({ message: `Ошибка подключения к базе данных: ${err} ` });
     throw Error(`Ошибка подключения к базе данных: ${err} `);
   });
+
+app.use(function(req, res, next) {
+  const { origin } = req.headers;
+  const { method } = req;
+
+  const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
+
+  if (allowedCors.includes(origin)) {
+    const requestHeaders = req.headers['access-control-request-headers'];
+    if (method === 'OPTIONS') {
+      res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+      return res.end();
+    }
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  next();
+});
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
