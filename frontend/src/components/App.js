@@ -44,7 +44,7 @@ function App() {
       .then((res)=> {
         setCurrentUser(prevState => ({
           ...prevState,
-          email: res.data.email
+          email: res.email
         }));
         setLoggedIn(true);
         redirectToRoot();
