@@ -165,5 +165,5 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.logoutUser = (req, res, next) => {
-  return res.clearCookie("key").send({}).end();
+  return res.clearCookie("jwt").send({}).end();
 };
