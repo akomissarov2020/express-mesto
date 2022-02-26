@@ -5,8 +5,9 @@ const Error401 = require('../errors/error401');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-module.exports = (req, res, next) => {
+module.exports = (err, req, res, next) => {
   if (!req.cookies || !req.cookies.jwt) {
+    if (err) console.log(err);
     return next(new Error401('Необходима авторизация'));
   }
   const token = req.cookies.jwt;
