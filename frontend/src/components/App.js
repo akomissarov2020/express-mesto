@@ -43,7 +43,6 @@ function App() {
     auth.user()
       .then((res)=> {
         setCurrentUser(prevState => ({
-          ...prevState,
           avatar: res.avatar,
           email: res.email,
           _id: res._id,
@@ -239,7 +238,6 @@ function App() {
     setIsLoadingSomething(true);
     auth.login(data)
       .then((data) => {
-        setLoggedIn(true);
         redirectToRoot();
       })
       .catch((err) => {
@@ -259,9 +257,13 @@ function App() {
   }
 
   function handleLogout() {
-    auth.logout();
-    setLoggedIn(false);
-    navigate('/signin');
+    auth.logout()
+    .then((data) => {
+      setCurrentUser({});
+      setLoggedIn(false);
+      navigate('/signin');
+    })
+    .catch((err) => console.log(`не удалось выйти`));
   }
 
   return (
