@@ -22,15 +22,15 @@ function Header(props) {
             </div>
           } />
           <Route path="/signin" element={
-            <Link to="/signup" className="header__status" target="_self">
+            <Link to="/signup" className="header__link" target="_self">
             Регистрация
           </Link>
           } />
           <Route path="/signup" element={
-            <Link to="/signin" className="header__status" target="_self">
+            <Link to="/signin" className="header__link" target="_self">
             Войти
           </Link>
-          } />  
+          } />
         </Routes>
     </header>
   );
